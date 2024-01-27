@@ -1,16 +1,53 @@
-# sensor
+## Flutter Sensor Implementation 📱🕹️
 
-A new Flutter project.
+Welcome to the Second Screen of our Flutter app, where we leverage the power of sensors to create an interactive experience! 🚀
 
-## Getting Started
+### Features:
 
-This project is a starting point for a Flutter application.
+- **Real-time Sensor Data:** Witness the magic of real-time data from the accelerometer and gyroscope sensors.
+- **Responsive UI:** Experience dynamic updates as you move your device, providing an engaging and interactive user interface.
+- **Smooth Animations:** Enjoy fluid animations that react seamlessly to your device's motion.
 
-A few resources to get you started if this is your first Flutter project:
+### Implementation:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+```dart
+import 'package:flutter/material.dart';
+import 'package:sensors/sensors.dart';
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+class SecondScreen extends StatefulWidget {
+  @override
+  _SecondScreenState createState() => _SecondScreenState();
+}
+
+class _SecondScreenState extends State<SecondScreen> {
+  double accelerometerX = 0.0;
+  double accelerometerY = 0.0;
+  double accelerometerZ = 0.0;
+
+  double gyroscopeX = 0.0;
+  double gyroscopeY = 0.0;
+  double gyroscopeZ = 0.0;
+
+  @override
+  void initState() {
+    super.initState();
+    initSensors();
+  }
+
+  void initSensors() {
+    accelerometerEvents.listen((AccelerometerEvent event) {
+      setState(() {
+        accelerometerX = event.x;
+        accelerometerY = event.y;
+        accelerometerZ = event.z;
+      });
+    });
+
+    gyroscopeEvents.listen((GyroscopeEvent event) {
+      setState(() {
+        gyroscopeX = event.x;
+        gyroscopeY = event.y;
+        gyroscopeZ = event.z;
+      });
+    });
+  }
